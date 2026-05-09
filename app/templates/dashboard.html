@@ -3,32 +3,32 @@
 <div class="topbar">
   <div>
     <h1 style="margin:0;">{{ title }}</h1>
-    <div class="muted">Dashboard</div>
+    <div class="muted">Boshqaruv paneli</div>
   </div>
   <div class="row-actions">
-    <a class="badge" href="/reports">Reports</a>
-    <a class="badge" href="/logout">Logout</a>
+    <a class="badge" href="/reports">Hisobotlar</a>
+    <a class="badge" href="/logout">Chiqish</a>
   </div>
 </div>
 
 <div class="grid stats">
   <div class="card">
-    <div class="muted">Jami reports</div>
+    <div class="muted">Jami hisobotlar</div>
     <div class="stat-value">{{ total_reports }}</div>
   </div>
   <div class="card">
-    <div class="muted">Bugungi reports</div>
+    <div class="muted">Bugungi hisobotlar</div>
     <div class="stat-value">{{ today_reports }}</div>
   </div>
   <div class="card">
-    <div class="muted">Jami agentlar</div>
+    <div class="muted">Jami analitiklar</div>
     <div class="stat-value">{{ total_agents }}</div>
   </div>
 </div>
 
 <div class="card" style="margin-top:16px;">
   <div class="topbar" style="margin-bottom:10px;">
-    <h3 style="margin:0;">Oxirgi yozuvlar</h3>
+    <h3 style="margin:0;">Oxirgi hisobotlar</h3>
     <a href="/reports">Barchasi</a>
   </div>
   <table>
@@ -36,9 +36,9 @@
       <tr>
         <th>ID</th>
         <th>Sana</th>
-        <th>Agent</th>
-        <th>Address</th>
-        <th>Client code</th>
+        <th>Analitik</th>
+        <th>Manzil</th>
+        <th>Mijoz kodi</th>
         <th></th>
       </tr>
     </thead>
@@ -53,7 +53,7 @@
         <td><a href="/reports/{{ report.id }}">Ko‘rish</a></td>
       </tr>
       {% else %}
-      <tr><td colspan="6">Hozircha ma'lumot yo‘q.</td></tr>
+      <tr><td colspan="6">Hozircha ma’lumot yo‘q.</td></tr>
       {% endfor %}
     </tbody>
   </table>

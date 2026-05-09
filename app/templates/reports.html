@@ -2,19 +2,19 @@
 {% block content %}
 <div class="topbar">
   <div>
-    <h1 style="margin:0;">Reports</h1>
+    <h1 style="margin:0;">Hisobotlar</h1>
     <div class="muted">Barcha kelgan ma'lumotlar</div>
   </div>
   <div class="row-actions">
-    <a class="badge" href="/">Dashboard</a>
-    <a class="badge" href="/logout">Logout</a>
+    <a class="badge" href="/">Bosh sahifa</a>
+    <a class="badge" href="/logout">Chiqish</a>
   </div>
 </div>
 
 <div class="card" style="margin-bottom:16px;">
   <form method="get" action="/reports" class="form-row">
-    <input name="q" value="{{ q }}" placeholder="Address, client code, izoh...">
-    <input name="agent" value="{{ agent }}" placeholder="Agent nomi">
+    <input name="q" value="{{ q }}" placeholder="Manzil, mijoz kodi, izoh...">
+    <input name="agent" value="{{ agent }}" placeholder="Analitik ismi">
     <button type="submit">Qidirish</button>
   </form>
 </div>
@@ -58,7 +58,7 @@
         <td>
           {% for photo in report.photos %}
             {% if photo.photo_type == "stand" %}
-              <a href="{{ photo.photo_link }}" target="_blank">Фото стенда</a>
+              <a href="{{ photo.photo_link }}" target="_blank">Ko‘rish</a>
             {% endif %}
           {% endfor %}
         </td>
@@ -66,7 +66,7 @@
         <td>
           {% for photo in report.photos %}
             {% if photo.photo_type == "product" %}
-              <a href="{{ photo.photo_link }}" target="_blank">Фото маҳсулот</a>
+              <a href="{{ photo.photo_link }}" target="_blank">Ko‘rish</a>
             {% endif %}
           {% endfor %}
         </td>
@@ -74,7 +74,7 @@
         <td>
           {% for photo in report.photos %}
             {% if photo.photo_type == "outside" %}
-              <a href="{{ photo.photo_link }}" target="_blank">Фото ташқари</a>
+              <a href="{{ photo.photo_link }}" target="_blank">Ko‘rish</a>
             {% endif %}
           {% endfor %}
         </td>
@@ -83,7 +83,7 @@
         <td>{{ report.agent.phone }}</td>
         <td>{{ report.rm_info }}</td>
         <td>{{ report.resolution_date }}</td>
-        <td><a href="/reports/{{ report.id }}">Ko‘rish</a></td>
+        <td><a href="/reports/{{ report.id }}">Batafsil</a></td>
       </tr>
       {% else %}
       <tr><td colspan="17">Hech narsa topilmadi.</td></tr>
