@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar">
+  <div>
+    <h1 style="margin:0;">Report #{{ report.id }}</h1>
+    <div class="muted">{{ report.created_at.strftime("%d.%m.%Y %H:%M") }}</div>
+  </div>
+  <div class="row-actions">
+    <a class="badge" href="/reports">Orqaga</a>
+    <a class="badge" href="/logout">Logout</a>
+  </div>
+</div>
+
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+  <div class="card">
+    <h3 style="margin-top:0;">Asosiy ma'lumot</h3>
+    <p><b>Адрес:</b> {{ report.address }}</p>
+    <p><b>Ориентир:</b> {{ report.landmark }}</p>
+    <p><b>Код клиента:</b> {{ report.client_code }}</p>
+    <p><b>Последний прибытия торгового агента:</b> {{ report.last_trade_agent_visit }}</p>
+    <p><b>Код стенда:</b> {{ report.stand_code }}</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0;">Analitik</h3>
+    <p><b>Аналитик:</b> {{ report.agent.full_name }}</p>
+    <p><b>Телефон:</b> {{ report.agent.phone }}</p>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px;">
+  <h3 style="margin-top:0;">Izohlar</h3>
+  <p><b>Комментарии от клиента:</b><br>{{ report.client_comment }}</p>
+  <p><b>Заключение:</b><br>{{ report.conclusion }}</p>
+</div>
+
+<div class="card" style="margin-top:16px;">
+  <h3 style="margin-top:0;">Rasmlar</h3>
+  <div class="photos">
+    {% for photo in report.photos %}
+    <div class="photo-box">
+      <div class="muted" style="margin-bottom:8px;">{{ photo.photo_type }}</div>
+      {% if photo.photo_link %}
+        <a href="{{ photo.photo_link }}" target="_blank">Rasmni ochish</a>
+      {% else %}
+        <span class="muted">Link yo‘q</span>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="muted">Rasmlar yo‘q.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

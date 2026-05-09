@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar">
+  <div>
+    <h1 style="margin:0;">{{ title }}</h1>
+    <div class="muted">Dashboard</div>
+  </div>
+  <div class="row-actions">
+    <a class="badge" href="/reports">Reports</a>
+    <a class="badge" href="/logout">Logout</a>
+  </div>
+</div>
+
+<div class="grid stats">
+  <div class="card">
+    <div class="muted">Jami reports</div>
+    <div class="stat-value">{{ total_reports }}</div>
+  </div>
+  <div class="card">
+    <div class="muted">Bugungi reports</div>
+    <div class="stat-value">{{ today_reports }}</div>
+  </div>
+  <div class="card">
+    <div class="muted">Jami agentlar</div>
+    <div class="stat-value">{{ total_agents }}</div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px;">
+  <div class="topbar" style="margin-bottom:10px;">
+    <h3 style="margin:0;">Oxirgi yozuvlar</h3>
+    <a href="/reports">Barchasi</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Sana</th>
+        <th>Agent</th>
+        <th>Address</th>
+        <th>Client code</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for report in latest_reports %}
+      <tr>
+        <td>#{{ report.id }}</td>
+        <td>{{ report.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+        <td>{{ report.agent.full_name }}</td>
+        <td>{{ report.address }}</td>
+        <td>{{ report.client_code }}</td>
+        <td><a href="/reports/{{ report.id }}">Ko‘rish</a></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">Hozircha ma'lumot yo‘q.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
