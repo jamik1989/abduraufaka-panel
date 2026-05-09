@@ -22,6 +22,7 @@ class Report(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     agent_id: Mapped[int] = mapped_column(ForeignKey("agents.id"), nullable=False)
+
     address: Mapped[str] = mapped_column(String(500), nullable=False)
     landmark: Mapped[str] = mapped_column(String(500), default="")
     client_code: Mapped[str] = mapped_column(String(100), default="")
@@ -29,10 +30,17 @@ class Report(Base):
     stand_code: Mapped[str] = mapped_column(String(100), default="")
     client_comment: Mapped[str] = mapped_column(Text, default="")
     conclusion: Mapped[str] = mapped_column(Text, default="")
+
+    rm_info: Mapped[str] = mapped_column(Text, default="")
+    resolution_date: Mapped[str] = mapped_column(String(100), default="")
+
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     agent: Mapped["Agent"] = relationship(back_populates="reports")
-    photos: Mapped[list["ReportPhoto"]] = relationship(back_populates="report", cascade="all, delete-orphan")
+    photos: Mapped[list["ReportPhoto"]] = relationship(
+        back_populates="report",
+        cascade="all, delete-orphan"
+    )
 
 
 class ReportPhoto(Base):

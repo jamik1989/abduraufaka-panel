@@ -14,12 +14,15 @@
 <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
   <div class="card">
     <h3 style="margin-top:0;">Asosiy ma'lumot</h3>
+    <p><b>Сана:</b> {{ report.created_at.strftime("%d.%m.%Y") }}</p>
+    <p><b>Вақт:</b> {{ report.created_at.strftime("%H:%M") }}</p>
     <p><b>Адрес:</b> {{ report.address }}</p>
     <p><b>Ориентир:</b> {{ report.landmark }}</p>
     <p><b>Код клиента:</b> {{ report.client_code }}</p>
-    <p><b>Последний прибытия торгового агента:</b> {{ report.last_trade_agent_visit }}</p>
+    <p><b>Посл приб аналитика:</b> {{ report.last_trade_agent_visit }}</p>
     <p><b>Код стенда:</b> {{ report.stand_code }}</p>
   </div>
+
   <div class="card">
     <h3 style="margin-top:0;">Analitik</h3>
     <p><b>Аналитик:</b> {{ report.agent.full_name }}</p>
@@ -29,7 +32,7 @@
 
 <div class="card" style="margin-top:16px;">
   <h3 style="margin-top:0;">Izohlar</h3>
-  <p><b>Комментарии от клиента:</b><br>{{ report.client_comment }}</p>
+  <p><b>Комментарии:</b><br>{{ report.client_comment }}</p>
   <p><b>Заключение:</b><br>{{ report.conclusion }}</p>
 </div>
 
@@ -49,5 +52,20 @@
     <div class="muted">Rasmlar yo‘q.</div>
     {% endfor %}
   </div>
+</div>
+
+<div class="card" style="margin-top:16px;">
+  <h3 style="margin-top:0;">Qo‘lda to‘ldiriladigan maydonlar</h3>
+  <form method="post" action="/reports/{{ report.id }}/update">
+    <div style="margin-bottom:12px;">
+      <label><b>Рм маълумоти</b></label>
+      <input type="text" name="rm_info" value="{{ report.rm_info or '' }}">
+    </div>
+    <div style="margin-bottom:12px;">
+      <label><b>Дата решения</b></label>
+      <input type="text" name="resolution_date" value="{{ report.resolution_date or '' }}" placeholder="masalan: 10.05.2026">
+    </div>
+    <button type="submit">Saqlash</button>
+  </form>
 </div>
 {% endblock %}

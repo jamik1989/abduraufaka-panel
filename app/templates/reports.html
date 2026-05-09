@@ -19,34 +19,74 @@
   </form>
 </div>
 
-<div class="card">
+<div class="card" style="overflow:auto;">
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Sana</th>
-        <th>Agent</th>
-        <th>Address</th>
-        <th>Landmark</th>
-        <th>Client code</th>
-        <th>Stand code</th>
+        <th>Сана</th>
+        <th>Вақт</th>
+        <th>Адрес</th>
+        <th>Ориентир</th>
+        <th>Код клиента</th>
+        <th>Посл приб аналитика</th>
+        <th>Код стенда</th>
+        <th>Комментарии</th>
+        <th>Заключение</th>
+        <th>Фото стенда</th>
+        <th>Фото маҳсулот</th>
+        <th>Фото ташқари</th>
+        <th>Аналитик исми</th>
+        <th>Аналитик номери</th>
+        <th>Рм маълумоти</th>
+        <th>Дата решения</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       {% for report in reports %}
       <tr>
-        <td>#{{ report.id }}</td>
-        <td>{{ report.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
-        <td>{{ report.agent.full_name }}</td>
+        <td>{{ report.created_at.strftime("%d.%m.%Y") }}</td>
+        <td>{{ report.created_at.strftime("%H:%M") }}</td>
         <td>{{ report.address }}</td>
         <td>{{ report.landmark }}</td>
         <td>{{ report.client_code }}</td>
+        <td>{{ report.last_trade_agent_visit }}</td>
         <td>{{ report.stand_code }}</td>
+        <td>{{ report.client_comment }}</td>
+        <td>{{ report.conclusion }}</td>
+
+        <td>
+          {% for photo in report.photos %}
+            {% if photo.photo_type == "stand" %}
+              <a href="{{ photo.photo_link }}" target="_blank">Фото стенда</a>
+            {% endif %}
+          {% endfor %}
+        </td>
+
+        <td>
+          {% for photo in report.photos %}
+            {% if photo.photo_type == "product" %}
+              <a href="{{ photo.photo_link }}" target="_blank">Фото маҳсулот</a>
+            {% endif %}
+          {% endfor %}
+        </td>
+
+        <td>
+          {% for photo in report.photos %}
+            {% if photo.photo_type == "outside" %}
+              <a href="{{ photo.photo_link }}" target="_blank">Фото ташқари</a>
+            {% endif %}
+          {% endfor %}
+        </td>
+
+        <td>{{ report.agent.full_name }}</td>
+        <td>{{ report.agent.phone }}</td>
+        <td>{{ report.rm_info }}</td>
+        <td>{{ report.resolution_date }}</td>
         <td><a href="/reports/{{ report.id }}">Ko‘rish</a></td>
       </tr>
       {% else %}
-      <tr><td colspan="8">Hech narsa topilmadi.</td></tr>
+      <tr><td colspan="17">Hech narsa topilmadi.</td></tr>
       {% endfor %}
     </tbody>
   </table>

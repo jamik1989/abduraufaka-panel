@@ -86,7 +86,11 @@ async def reports_page(
     q: str = "",
     agent: str = "",
 ):
-    stmt = select(Report).options(selectinload(Report.agent), selectinload(Report.photos)).order_by(Report.id.desc())
+    stmt = (
+        select(Report)
+        .options(selectinload(Report.agent), selectinload(Report.photos))
+        .order_by(Report.id.desc())
+    )
 
     if q:
         stmt = stmt.where(
@@ -96,6 +100,7 @@ async def reports_page(
                 Report.client_code.ilike(f"%{q}%"),
                 Report.client_comment.ilike(f"%{q}%"),
                 Report.conclusion.ilike(f"%{q}%"),
+                Report.rm_info.ilike(f"%{q}%"),
             )
         )
 
@@ -136,3 +141,24 @@ async def report_detail(request: Request, report_id: int, db: Session = Depends(
             "report": report,
         },
     )
+
+
+@router.post("/reports/{report_id}/update")
+@require_login
+async def update_report_manual_fields(
+    request: Request,
+    report_id: int,
+    rm_info: str = Form(""),
+    resolution_date: str = Form(""),
+    db: Session = Depends(get_db),
+):
+    report = db.execute(select(Report).where(Report.id == report_id)).scalar_one_or_none()
+    if not report:
+        return RedirectResponse("/reports", status_code=303)
+
+    report.rm_info = rm_info.strip()
+    report.resolution_date = resolution_date.strip()
+    db.add(report)
+    db.commit()
+
+    return RedirectResponse(f"/reports/{report_id}", status_code=303)
